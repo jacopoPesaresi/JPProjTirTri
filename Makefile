@@ -70,4 +70,4 @@ clearP:
 	-rm -r ${RAW_PHOTO}/*
 
 checkLanguage:
-	python3 tessusage/tmp.py
+	python3 tessusage/checker.py
