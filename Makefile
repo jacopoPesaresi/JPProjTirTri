@@ -1,27 +1,16 @@
 export
 
-# # Page segmentation mode. Default: $(PSM)
-# PSM = 13
-
-# # Random seed for shuffling of the training data. Default: $(RANDOM_SEED)
-# RANDOM_SEED := 0
-
-#Use corrent python program name on Windows
-# ifeq ($(OS),Windows_NT)
-#     PY_CMD := python
-# else
-#     PY_CMD := python3
-# endif
-
-# BEGIN-EVAL makefile-parser --make-help Makefile
-
 LANGUAGES=abc abf abh
+LANG_STORED = tesseractWeights
 
 RAW_PHOTO = inputImages
 CROPPED_PHOTO = tessusage/croppedLP
+
 LOG_FILE_DIR = resultLog
 
 YOLO_RES = yoloR
+
+FINISHPATH_CROPPED_PHOTO = ${YOLO_RES}/crops/license plate
 
 help: default
 	@echo ""
@@ -56,7 +45,7 @@ endif
 .PHONY: help all onlyOutput cropper transalte clear clearP checkLanguage
 
 translate:
-	cd tessusage; python3 byCroppedLPtoString.py
+	python3 tessusage/byCroppedLPtoString.py
     
 cropper:
 	-rm -r ${CROPPED_PHOTO}/*

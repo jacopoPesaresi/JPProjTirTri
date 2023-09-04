@@ -3,16 +3,32 @@ import pytesseract
 #import preprocessing
 import os
 
-os.environ["TESSDATA_PREFIX"] = "../tesseractWeights"
+os.environ["TESSDATA_PREFIX"] = os.environ["LANG_STORED"]
 
-tessdataUsed = "abh"
+tessdataUsed = []
+langs = os.listdir(os.environ["LANG_STORED"]) #dove storicizzo i .traineddata
 
-croppedLPdir = "croppedLP/yoloR/crops/license plate"
+sss = os.environ["LANGUAGES"] # quelli che desidero per questa esecuzione
+ss = list(sss.split())
+for s in ss:
+    print("Cerco", s, ":")
+    ext = ".traineddata"
+    try:
+        langs.index(s + ext)
+        print("Linguaggio", s, "trovato; \n")
+        tessdataUsed.append(s)
+    except:
+        print("Linguaggio", s, "NON trovato; \n")
+    
 
+croppedLPdir = os.environ["CROPPED_PHOTO"] + "/" + os.environ["FINISHPATH_CROPPED_PHOTO"]
+
+#print(tessdataUsed)
 
 #### OCR SCRIPT ####
 
-logDir = "../resultLog"
+logDir = os.environ["LOG_FILE_DIR"]
+#logDir = "resultLog"
 
 thisOutFileName = "thisRes.txt"
 mapOutFileName = "mapRes.txt"
@@ -64,7 +80,7 @@ def manageConversion(path):
     #lll = ["jjj", "lat", "com", "nda", "ndb"]
     #lll = ["eng", "nna", "nnb", "nnc"]
     #lll = ["eng", "jpt"]#, "nnb", "nnc"]
-    languages = [tessdataUsed]
+    languages = tessdataUsed
     custom_config = r'--oem 3 --psm 6'
     for i in typeImages:
         for l in languages:
