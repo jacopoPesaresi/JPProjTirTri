@@ -40,7 +40,7 @@ pip install -r YOLO/yolov5/requirements.txt
 
 (assumendo di essere presenti, con il terminale, nella root del progetto, e mantenendo il suggerimento di aver prima inizializzato un ambiente conda)
 
-Una volta installato il necessario, la rete YOLO dovrebbe essere pronta per avviare poi la fase di detect secondo i pesi forniti nell'apposita cartella
+Una volta installato il necessario, la rete YOLO dovrebbe essere pronta per avviare poi la fase di detect secondo i pesi forniti nell'apposita cartella.
 
 Se si desidera allenare un nuovo modello di object-detector, è possibile farlo seguendo i passi indicati nel tutorial, tuttavia per poi usare i nuovi pesi bisogna apporre delle modifiche nel makefile (in primis modificare il path nella label --weight del comando "python3 detect" in riga 62)
 
@@ -51,7 +51,7 @@ https://github.com/tesseract-ocr
 
 (e in particolare seguendo le istruzioni presenti nel file "INSTALL.GIT.md")
 
-Anche se dovrebbe essere necessario, dopo aver scaricato la repository, eseguire (come indicato da risorse soprastanti) semplicemente le istruzioni bash:
+Anche se dovrebbe essere necessario, dopo aver scaricato la repository in una directory a parte, eseguire (come indicato da risorse soprastanti) semplicemente le istruzioni bash:
 
 ```bash
 $ ./autogen.sh
@@ -95,7 +95,9 @@ Si è deciso di delegare l'esecuzione delle due fasi a un Makefile. Questo è in
 Notare che ogni esecuzione di "cropper" elimina i risultati delle targhe croppate dall'ultimo "cropper", mentre l'esecuzione di "translate" elimina i risultati delle stringhe prodotte dall'ultimo "translate" (tranne per quelle salvate in allRes.txt). E ovviamente con "make all" si esegue sia il "make cropper" sia il "make translate"
 
 Altri .PHONY attualmente presenti:
-clear: pulisce tutti i file non strettamente necessari al funzionamento del progetto
-clearP: elimina solo le foto presenti nella cartella RAW_PHOTO
-onlyOutput: è come il "make all" ma non è "reversibile", in quanto, finita l'estrazione delle stringhe, provvede automaticamente all'eliminazione delle immagini in RAW_PHOTO (esegue anche clearP oltre a all)
+- clear: pulisce tutti i file non strettamente necessari al funzionamento del progetto, tranne le immagini passare in input
+- clearL: elimina solo i file di log
+- clearP: elimina solo le foto presenti nella cartella RAW_PHOTO
+- onlyOutput: è come il "make all" ma non è "reversibile", in quanto, finita l'estrazione delle stringhe, provvede automaticamente all'eliminazione delle immagini in RAW_PHOTO (in particolare esegue anche "clearP" oltre a "all")
 
+(per sapere i valori attuali di RAW_PHOTO, ecc, è sufficente lanciare il comando "make")
