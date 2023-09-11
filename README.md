@@ -97,7 +97,8 @@ Si è deciso di delegare l'esecuzione delle due fasi a un Makefile. Questo è in
 Notare che ogni esecuzione di "cropper" elimina i risultati delle targhe croppate dall'ultimo "cropper", mentre l'esecuzione di "translate" elimina i risultati delle stringhe prodotte dall'ultimo "translate" (tranne per quelle salvate in allRes.txt). E ovviamente con "make all" si esegue sia il "make cropper" sia il "make translate"
 
 Altri .PHONY attualmente presenti:
- - clear: pulisce tutti i file non strettamente necessari al funzionamento del progetto, tranne le immagini passare in input
+ - clear: pulisce tutti i file non strettamente necessari al funzionamento del progetto, tranne le immagini passate in input
+ - clear: come clear ma pulisce anche le immagini passate in input
  - clearL: elimina solo i file di log
  - clearP: elimina solo le foto presenti nella cartella RAW_PHOTO
  - onlyOutput: è come il "make all" ma non è "reversibile", in quanto, finita l'estrazione delle stringhe, provvede automaticamente all'eliminazione delle immagini in RAW_PHOTO (in particolare esegue anche "clearP" oltre a "all")
