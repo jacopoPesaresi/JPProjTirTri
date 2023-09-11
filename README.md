@@ -32,7 +32,9 @@ https://blog.paperspace.com/train-yolov5-custom-data/
 
 (e ovviamente relativa repository: https://github.com/ultralytics/yolov5)
 
-Tuttavia, per quanto riguarda lo stretto necessario di questo progetto, dovrebbe essere necessario eseguire il comando
+Tant'è che dentro la cartella YOLO c'è praticamente una copia di questa repository
+
+Per quanto riguarda lo stretto necessario di questo progetto, dovrebbe essere necessario eseguire il comando
 
 ```bash
 pip install -r YOLO/yolov5/requirements.txt
@@ -42,7 +44,7 @@ pip install -r YOLO/yolov5/requirements.txt
 
 Una volta installato il necessario, la rete YOLO dovrebbe essere pronta per avviare poi la fase di detect secondo i pesi forniti nell'apposita cartella.
 
-Se si desidera allenare un nuovo modello di object-detector, è possibile farlo seguendo i passi indicati nel tutorial, tuttavia per poi usare i nuovi pesi bisogna apporre delle modifiche nel makefile (in primis modificare il path nella label --weight del comando "python3 detect" dentro il target "cropper")
+Se si desidera allenare un nuovo modello di object-detector, è possibile farlo seguendo i passi indicati nel tutorial, tuttavia per poi usare i nuovi pesi bisogna apporre delle modifiche nel makefile (in primis modificare il path nella label --weight del comando "python3 detect" dentro il target "cropper") oppure rimpiazzare il file di pesi fornito con quello allenato
 
 ## Installazione OCR
 A differenza di YOLO, per quanto riguarda l'installazione dell'OCR bisogna seguire tutti i passaggi indicati nella repository ufficiale:
@@ -51,7 +53,7 @@ https://github.com/tesseract-ocr/tesseract
 
 (e in particolare seguendo le istruzioni presenti nel file "INSTALL.GIT.md")
 
-Anche se dovrebbe essere necessario, dopo aver scaricato la repository in una directory a parte, eseguire (come indicato da risorse soprastanti) semplicemente le istruzioni bash:
+Anche se dovrebbe essere necessario, dopo aver scaricato la repository in una directory a parte (magari esterna a questo progetto), eseguire (come indicato esplorando le informazioni soprastanti) semplicemente le istruzioni bash:
 
 ```bash
 $ ./autogen.sh
@@ -88,16 +90,16 @@ N.B.: notare che nel file "thisRes.txt" e in "allRes.txt" ogni risultato nuovo i
 L'idea infatti è stata quella che ogni qualvolta che viene identificata una macchina, venga scattata una foto, caricata in questa cartella, quindi eseguita la fase di lettura e registrazione dei risultati nell'apposito file, quindi letti da un altro software che si occuperà di eseguire le query al database
 
 Si è deciso di delegare l'esecuzione delle due fasi a un Makefile. Questo è in grado di:
-- eseguire tutte le fasi in un colpo solo: eseguendo l'istruzione "make all"
-- eseguire solo l'estrazione delle targhe: eseguendo l'istruzione "make cropper"
-- eseguire solo l'estrazione delle stringhe: eseguendo l'istruzione "make translate"
+ - eseguire tutte le fasi in un colpo solo: eseguendo l'istruzione "make all"
+ - eseguire solo l'estrazione delle targhe: eseguendo l'istruzione "make cropper"
+ - eseguire solo l'estrazione delle stringhe: eseguendo l'istruzione "make translate"
 
 Notare che ogni esecuzione di "cropper" elimina i risultati delle targhe croppate dall'ultimo "cropper", mentre l'esecuzione di "translate" elimina i risultati delle stringhe prodotte dall'ultimo "translate" (tranne per quelle salvate in allRes.txt). E ovviamente con "make all" si esegue sia il "make cropper" sia il "make translate"
 
 Altri .PHONY attualmente presenti:
-- clear: pulisce tutti i file non strettamente necessari al funzionamento del progetto, tranne le immagini passare in input
-- clearL: elimina solo i file di log
-- clearP: elimina solo le foto presenti nella cartella RAW_PHOTO
-- onlyOutput: è come il "make all" ma non è "reversibile", in quanto, finita l'estrazione delle stringhe, provvede automaticamente all'eliminazione delle immagini in RAW_PHOTO (in particolare esegue anche "clearP" oltre a "all")
+ - clear: pulisce tutti i file non strettamente necessari al funzionamento del progetto, tranne le immagini passare in input
+ - clearL: elimina solo i file di log
+ - clearP: elimina solo le foto presenti nella cartella RAW_PHOTO
+ - onlyOutput: è come il "make all" ma non è "reversibile", in quanto, finita l'estrazione delle stringhe, provvede automaticamente all'eliminazione delle immagini in RAW_PHOTO (in particolare esegue anche "clearP" oltre a "all")
 
-(per sapere i valori attuali di RAW_PHOTO, ecc, è sufficente lanciare il comando "make")
+(per sapere i valori attuali di RAW_PHOTO, o altre informazioni, è sufficente lanciare il comando "make")
