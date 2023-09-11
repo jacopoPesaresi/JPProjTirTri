@@ -42,7 +42,7 @@ pip install -r YOLO/yolov5/requirements.txt
 
 Una volta installato il necessario, la rete YOLO dovrebbe essere pronta per avviare poi la fase di detect secondo i pesi forniti nell'apposita cartella.
 
-Se si desidera allenare un nuovo modello di object-detector, è possibile farlo seguendo i passi indicati nel tutorial, tuttavia per poi usare i nuovi pesi bisogna apporre delle modifiche nel makefile (in primis modificare il path nella label --weight del comando "python3 detect" in riga 62)
+Se si desidera allenare un nuovo modello di object-detector, è possibile farlo seguendo i passi indicati nel tutorial, tuttavia per poi usare i nuovi pesi bisogna apporre delle modifiche nel makefile (in primis modificare il path nella label --weight del comando "python3 detect" dentro il target "cropper")
 
 ## Installazione OCR
 A differenza di YOLO, per quanto riguarda l'installazione dell'OCR bisogna seguire tutti i passaggi indicati nella repository ufficiale:
