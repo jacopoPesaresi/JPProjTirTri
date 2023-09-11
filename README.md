@@ -80,14 +80,14 @@ pip install pytesseract
 # Esecuzione del progetto qui presente
 Il ragionamento del progetto, nel suo complesso, segue attualmente 2 fasi:
 1) prese le immagini, la rete YOLO identifica le targhe, quindi le croppa in immagini più piccole spostandole direttamente nella directory nota anche all'OCR (ovvero nella directory salvata nel makefile stesso sotto la variabile CROPPED_PHOTO)
-2) ora che si hanno le immagini croppate, la rete OCR cerca, usando uno o più pesi diversi, ad estrarre la targa dall'immagine, quindi genera essenzialmente 3 file nella directory indicata dalla variabile "LOG_FILE_DIR":
+2) ora che si hanno le immagini croppate, la rete OCR cerca, usando uno o più pesi diversi, di estrarre la targa dall'immagine, quindi genera essenzialmente 3 file nella directory indicata dalla variabile "LOG_FILE_DIR":
     - thisRes.txt: riporta i risultati ottenuti da questo ciclo di letture
     - mapRes.txt: aiuta a capire la provenienza di ogni risultato (associa immagine-croppata / risultato)
     - allRes.txt: riporta tutti i risultati di tutte le letture
 
 N.B.: notare che nel file "thisRes.txt" e in "allRes.txt" ogni risultato nuovo inizia con il pattern "§NLP§) ", cosicchè, se l'OCR dovesse inserire caratteri strani, è possibile capire quando inizia e quando finisce una targa (o se banalmente la targa stessa si sviluppa su più righe, ecc)
 
-L'idea infatti è stata quella che ogni qualvolta che viene identificata una macchina, venga scattata una foto, caricata in questa cartella, quindi eseguita la fase di lettura e registrazione dei risultati nell'apposito file, quindi letti da un altro software che si occuperà di eseguire le query al database
+L'idea infatti è stata quella che ogni qualvolta venga scattata una foto, questa deve essere caricata in questa cartella, quindi eseguita la fase di lettura e registrazione dei risultati nell'apposito file, quindi letti da un altro software che si occuperà di eseguire le query al database
 
 Si è deciso di delegare l'esecuzione delle due fasi a un Makefile. Questo è in grado di:
  - eseguire tutte le fasi in un colpo solo: eseguendo l'istruzione "make all"
