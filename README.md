@@ -5,11 +5,11 @@ Si assume che le macchine vengano caricate libere all'interno di una cartella di
 (notare che questi valori si possono cambiare nel makefile presente, modificando il valore delle variabili "RAW_PHOTO" e "LOG_FILE_DIR")
 
 
-Per poterlo realizzare sono state seguite diverse guide. Per semplicità, la realizzazione del progetto è stata effettuata sviluppando due reti distinte, una object detector e una OCR. Per la prima si è adottato principalmente il progetto YOLO, mentre per la seconda principalmente Tesseract di Google.
+Per semplicità, la realizzazione del progetto è stata effettuata sviluppando due reti distinte, una object detector e una OCR. Per la prima si è adottato principalmente il progetto YOLO, mentre per la seconda principalmente Tesseract di Google.
 
 In questo pacchetto sono già presenti i pesi dei risultati degli addestramenti, in particolare:
 
-YOLO: ./YOLO/yolov5/runs/train/yoloW/weights/best.pt
+YOLO: ./YOLO/yolov5/runs/train/yoloW/weights/best.pt 
 
 OCR: ./tesseractWeights/ * .traineddata
 
@@ -47,7 +47,7 @@ Se si desidera allenare un nuovo modello di object-detector, è possibile farlo 
 ## Installazione OCR
 A differenza di YOLO, per quanto riguarda l'installazione dell'OCR bisogna seguire tutti i passaggi indicati nella repository ufficiale:
 
-https://github.com/tesseract-ocr
+https://github.com/tesseract-ocr/tesseract
 
 (e in particolare seguendo le istruzioni presenti nel file "INSTALL.GIT.md")
 
@@ -66,7 +66,7 @@ $ sudo make training-install
 N.B.: le ultime due dovrebbero essere strettamente necessarie per un utente interessato ad addestrare nuovi .traineddata . Se non è il tuo caso e queste installazioni dovessero fallire, dovresti poter star tranquillo
 
 
-(se invece si è interessati ad allenare nuovi .traineddata, allora si rimanda alla repository https://github.com/tesseract-ocr/tesstrain)
+(se invece si è interessati ad allenare nuovi .traineddata, allora si rimanda a quanto presente nella repository https://github.com/tesseract-ocr/tesstrain)
 
 
 Inoltre, dopo aver installato tesseract, è necessario installare anche pytesseract, il wrapper di python che permette di usare tesseract all'interno di un codice. Per farlo:
@@ -78,12 +78,12 @@ pip install pytesseract
 # Esecuzione del progetto qui presente
 Il ragionamento del progetto, nel suo complesso, segue attualmente 2 fasi:
 1) prese le immagini, la rete YOLO identifica le targhe, quindi le croppa in immagini più piccole spostandole direttamente nella directory nota anche all'OCR (ovvero nella directory salvata nel makefile stesso sotto la variabile CROPPED_PHOTO)
-2) ora che si hanno le immagini croppate, la rete OCR cerca, usando uno o più pesi diversi, a estrarre la targa dall'immagine, quindi genera essenzialmente 3 file nella directory indicata dalla variabile "LOG_FILE_DIR":
+2) ora che si hanno le immagini croppate, la rete OCR cerca, usando uno o più pesi diversi, ad estrarre la targa dall'immagine, quindi genera essenzialmente 3 file nella directory indicata dalla variabile "LOG_FILE_DIR":
     - thisRes.txt: riporta i risultati ottenuti da questo ciclo di letture
     - mapRes.txt: aiuta a capire la provenienza di ogni risultato (associa immagine-croppata / risultato)
     - allRes.txt: riporta tutti i risultati di tutte le letture
 
-N.B.: notare che nel tile "thisRes.txt" e in "allRes.txt" ogni risultato nuovo inizia con il pattern "§NLP§) ", cosicchè, se l'OCR dovesse inserire caratteri strani, è possibile capire quando inizia e quando finisce una targa (o se banalmente la targa stessa si sviluppa su più righe, ecc)
+N.B.: notare che nel file "thisRes.txt" e in "allRes.txt" ogni risultato nuovo inizia con il pattern "§NLP§) ", cosicchè, se l'OCR dovesse inserire caratteri strani, è possibile capire quando inizia e quando finisce una targa (o se banalmente la targa stessa si sviluppa su più righe, ecc)
 
 L'idea infatti è stata quella che ogni qualvolta che viene identificata una macchina, venga scattata una foto, caricata in questa cartella, quindi eseguita la fase di lettura e registrazione dei risultati nell'apposito file, quindi letti da un altro software che si occuperà di eseguire le query al database
 
