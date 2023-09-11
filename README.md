@@ -98,7 +98,7 @@ Notare che ogni esecuzione di "cropper" elimina i risultati delle targhe croppat
 
 Altri .PHONY attualmente presenti:
  - clear: pulisce tutti i file non strettamente necessari al funzionamento del progetto, tranne le immagini passate in input
- - clear: come clear ma pulisce anche le immagini passate in input
+ - clearAll: come clear ma pulisce anche le immagini passate in input
  - clearL: elimina solo i file di log
  - clearP: elimina solo le foto presenti nella cartella RAW_PHOTO
  - onlyOutput: è come il "make all" ma non è "reversibile", in quanto, finita l'estrazione delle stringhe, provvede automaticamente all'eliminazione delle immagini in RAW_PHOTO (in particolare esegue anche "clearP" oltre a "all")
